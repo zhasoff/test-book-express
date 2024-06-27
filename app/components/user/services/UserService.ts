@@ -11,6 +11,15 @@ class UserService {
     }
   }
 
+  // async signInUser({ email, password }: UserInterface) {
+  //   try {
+  //     const user = await User.findOne({ email, password });
+  //     return user;
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // }
+
   async getUsers() {
     try {
       const categories = await User.findAll();

@@ -9,7 +9,7 @@ const port = process.env.PORT || 3000;
 const start = async () => {
   const { sequelize } = await initializeDb();
   if (sequelize) {
-    await sequelize.sync({ force: true });
+    await sequelize.sync({ alter: true });
   }
   
   app.use(bodyParser.json());

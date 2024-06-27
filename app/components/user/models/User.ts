@@ -2,13 +2,13 @@ import { Model, DataTypes } from "sequelize";
 import sequelize from "../../../db/config.js";
 
 class User extends Model {
-  public id!: number;
-  public username!: string;
-  public password!: string;
-  public email!: string;
-  public role!: number | null;
-  public readonly createdAt!: Date;
-  public readonly updatedAt!: Date;
+  // public id!: number;
+  // public username!: string;
+  // public password!: string;
+  // public email!: string;
+  // public role!: number | null;
+  // public readonly createdAt!: Date;
+  // public readonly updatedAt!: Date;
 }
 
 User.init(
