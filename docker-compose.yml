@@ -1,0 +1,34 @@
+version: "3.8"
+
+services:
+  db:
+    image: postgres:latest
+    restart: always
+    environment:
+      POSTGRES_USER: postgresUser
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: postgresDB
+      POSTGRES_PORT: "5455"
+      POSTGRES_HOST_AUTH_METHOD: trust
+    ports:
+      - "5455:5432"
+    container_name: db-test
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - "3017:3017"
+    depends_on:
+      - db
+    environment:
+      DB_HOST: db
+      DB_USER: postgresUser
+      DB_PASSWORD: password
+      DB_NAME: postgresDB
+      DB_PORT: "5432"
+      DB_DIALECT: postgres
+    command: npm run dev
+    container_name: back-test
