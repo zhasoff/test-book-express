@@ -1,22 +1,32 @@
 import { Router } from "express";
 import UserController from "../controllers/UserController.ts";
 import multer from "multer";
-// import { validateAdmin } from "../../auth/middlewares/authMiddleware.ts";
+import auth from "../../../shared/middleware/auth.ts";
 
 const router = Router();
 
 router
   .route("/")
-  .post(multer().none(), UserController.createUser)
-  .get(UserController.getUser);
+  .get(UserController.getUser)
 
 router
-  .route("/:id")
-  .get(UserController.getCategories)
-// .put(validateAdmin, categoryController.updateCategory)
-// .delete(validateAdmin, categoryController.deleteCategory);
+  .route("/:id/role")
+  .put(multer().none(),auth.verifyToken({ requiredRole: 1 }), UserController.changeUserRole)
 
 router
   .route("/login")
   .post(multer().none(), UserController.signInUser)
+
+  router
+  .route("/register")
+  .post(multer().none(), UserController.createUser)
+
+router
+  .route("/all")
+  .get(auth.verifyToken({ requiredRole: 1 }), UserController.getUsers)
+
+router
+  .route("/me")
+  .get(auth.getIdByToken(), UserController.getUserMe)
+
 export default router;

@@ -1,44 +1,34 @@
 import { Model, DataTypes } from "sequelize";
 import sequelize from "../../../db/config.js";
 
-class User extends Model {
-  // public id!: number;
-  // public username!: string;
-  // public password!: string;
-  // public email!: string;
-  // public role!: number | null;
-  // public readonly createdAt!: Date;
-  // public readonly updatedAt!: Date;
+class Book extends Model {
 }
 
-User.init(
+Book.init(
   {
     id: {
       type: DataTypes.INTEGER.UNSIGNED,
       autoIncrement: true,
       primaryKey: true,
     },
-    username: {
+    title: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    password: {
+    author: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    email: {
+    publicationDate: {
+      type: DataTypes.DATE,
+      defaultValue: DataTypes.NOW,
+      allowNull: false,
+    },
+    genres: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    role: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-    },
-    isAccepted: {
-      type: DataTypes.BOOLEAN,
-      defaultValue: false,
-      allowNull: false,
-    },
+ 
     createdAt: {
       type: DataTypes.DATE,
       defaultValue: DataTypes.NOW,
@@ -52,8 +42,10 @@ User.init(
   },
   {
     sequelize,
-    tableName: "users",
-    modelName: 'user',
+    tableName: "books",
+    modelName: 'book',
   }
 );
-export default User;
+
+
+export default Book;

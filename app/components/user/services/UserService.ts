@@ -2,6 +2,7 @@ import { UserInterface } from "../interfaces/UserInterface.ts";
 import User from "../models/User.ts";
 
 class UserService {
+  
   async createUser({ username, password, email, role }: UserInterface) {
     try {
       const user = await User.create({ username, password, email, role });
@@ -11,23 +12,33 @@ class UserService {
     }
   }
 
-  // async signInUser({ email, password }: UserInterface) {
-  //   try {
-  //     const user = await User.findOne({ email, password });
-  //     return user;
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // }
-
-  async getUsers() {
+  async signInUser({ email }: UserInterface) {
     try {
-      const categories = await User.findAll();
-      return categories;
+      const user = await User.findOne({ where: { email } });
+      return user;
     } catch (err) {
       console.log(err);
     }
   }
+
+  async getUsers() {
+    try {
+      const users = await User.findAll();
+      return users;
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  async getUserMe({id}) {
+    try {
+      const users = await User.findOne({ where: { id } });
+      return users;
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
 
   async getUser({ id }: UserInterface) {
     try {
@@ -38,9 +49,9 @@ class UserService {
     }
   }
 
-  async updateUser({ id, username, password, role }: UserInterface) {
+  async updateUser({ role,id }: UserInterface) {
     try {
-      await User.update({ username, password, role }, { where: { id } });
+      await User.update({role }, { where: { id } });
       const user = await User.findByPk(id);
       return user;
     } catch (err) {
@@ -48,23 +59,7 @@ class UserService {
     }
   }
 
-  async deleteUser({ id }: UserInterface) {
-    try {
-      const user = await User.destroy({ where: { id } });
-      return user;
-    } catch (err) {
-      console.log(err);
-    }
-  }
 
-  async getUsersCount() {
-    try {
-      const categoriesCount = await User.count();
-      return categoriesCount;
-    } catch (err) {
-      console.log(err);
-    }
-  }
 }
 
 export default new UserService();

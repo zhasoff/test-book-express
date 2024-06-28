@@ -2,8 +2,9 @@ import express from "express";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 
-import categoryToutes from "../app/components/category/routes/categoryRoutes.ts"
 import UserRoutes from "../app/components/user/routes/UserRoutes.ts"
+import BookRoutes from "../app/components/book/routes/BookRoutes.ts"
+
 
 
 const app = express();
@@ -11,8 +12,9 @@ const app = express();
 app.use(cookieParser());
 app.use(cors());
 
-app.use("/api/category", categoryToutes);
 app.use("/api/users", UserRoutes);
+app.use("/api/books", BookRoutes);
+
 
 
 export const handelAppError = () => {
